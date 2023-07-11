@@ -5,7 +5,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require("cors");
 
-
+const User = require('./model/user');
+const Client = require('./model/Client');
+const Seller = require('./model/Seller');
+const Category = require('./model/Category');
+const Product = require('./model/Product');
+const Order = require('./model/Order');
+const OrderItem = require('./model/OderItem');
+const Review = require('./model/Review');
 
 
 app.use(express.json());
