@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-
-
-
-const sequelize = new Sequelize('antika', 'root', 'root', {
+require('dotenv').config()
+const user=process.env.user||'root'
+const password=process.env.password||'root'
+const sequelize = new Sequelize('antika', user, password, {
   host: 'localhost',
   dialect: 'mysql',
   logging: false,
@@ -16,5 +16,5 @@ sequelize.query("CREATE DATABASE IF NOT EXISTS `antika`;") // Create the databas
     console.error('Unable to create the database:', error);
     sequelize.close();
   });
-
+console.log(user)
 module.exports = sequelize;
