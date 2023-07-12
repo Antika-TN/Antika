@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/signup', /*  middleware ,controller */);
+router.post('/signup', );
 
 
-router.post('/login',  /*  middleware ,controller */);
+router.post('/login',  );
 
 
-router.get('/logout', /*  middleware ,controller */);
+router.get('/logout', );
 
 module.exports = router;
