@@ -1,5 +1,4 @@
 const User = require("../model/user");
-const isAuth = require("../middleware/isAuth");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -43,7 +42,7 @@ const AuthController = {
       }
 
       const token = jwt.sign({ id: user.id, email: user.email }, 'your-secret-key', {
-        expiresIn: '12h' //You can customize the expiration time
+        expiresIn: '12h' 
       });
 
       res.json({ token });
