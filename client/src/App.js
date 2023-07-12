@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
-function App() {
+import AdminPage from './pages/AdminPage'
+import RegisterPage from './pages/RegisterPage'
+import LoginPage from './pages/LoginPage'
+import HomePage from './pages/HomePage'
+import UserProfile from './pages/UserProfile'
+import ShoppingCard from './pages/ShoppingCard'
+import ProductPage from './pages/ProductPage'
+import TopBar from './Components/Navbar/TopBar'
+
+
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
-}
+};
+
+const AppRoutes = () => {
+  const location = useLocation();
+
+  const isAuthPage =
+    location.pathname === "/" || location.pathname === "/register";
+
+  return (
+    <>
+      {!isAuthPage && <TopBar />}
+      <Routes>
+        <Route exact path="/" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/userProfile" element={<UserProfile />} />
+        <Route path="/shoppingCard" element={<ShoppingCard />} />
+        <Route path="/product" element={<ProductPage />} />
+      </Routes>
+    </>
+  );
+};
 
 export default App;
