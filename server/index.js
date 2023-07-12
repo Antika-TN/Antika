@@ -1,6 +1,5 @@
 const express = require("express");
 const sequelize = require('./db/db.connect');
-const route = require('./router/router');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require("cors");
@@ -13,12 +12,26 @@ const Product = require('./model/Product');
 const Order = require('./model/Order');
 const OrderItem = require('./model/OderItem');
 const Review = require('./model/Review');
+const authRouter = require('./router/Auth');
+const clientRouter = require('./router/clients');
+const sellerRouter = require('./router/sellers');
+const categoryRouter = require('./router/categories');
+const productRouter = require('./router/products');
+const orderRouter = require('./router/orders');
+const reviewRouter = require('./router/reviews');
 
 
 app.use(express.json());
 app.use(cors());
 
 // app.use(route);
+app.use('/auth', authRouter);
+app.use('/clients', clientRouter);
+app.use('/sellers', sellerRouter);
+app.use('/categories', categoryRouter);
+app.use('/products', productRouter);
+app.use('/orders', orderRouter);
+app.use('/reviews', reviewRouter);
 
 sequelize.authenticate()
   .then(() => {
