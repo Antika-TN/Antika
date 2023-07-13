@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const SellerController = require('../controler/SellerControler')
 
-router.get('/', /*  middleware ,controller */ );
+router.get('/',SellerController.getAllCategory /*  middleware ,controller */ );
+router.get('/:id',SellerController.getCategoryById /*  middleware ,controller */ );
+router.post('/',SellerController.createCategory/*  middleware ,controller */);
+router.put('/:id',SellerController.updateCategory /*  middleware ,controller */);
+router.delete('/:id',SellerController.deleteCategory /*  middleware ,controller */);
 
-router.post('/',  /*  middleware ,controller */);
-
-router.put('/:id',  /*  middleware ,controller */);
 
 module.exports = router;
