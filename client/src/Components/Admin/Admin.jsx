@@ -1,8 +1,11 @@
 import React from 'react'
+import HomePage from '../../pages/HomePage'
 
 const Admin = () => {
   return (
-    <div>Admin</div>
+    <div>
+     
+    </div>
   )
 }
 
