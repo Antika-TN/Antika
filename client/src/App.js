@@ -10,11 +10,12 @@ import UserProfile from "./pages/UserProfile";
 import ShoppingCard from "./pages/ShoppingCard";
 import ProductPage from "./pages/ProductPage";
 import TopBar from "./Components/Navbar/TopBar";
+import ResponsiveAppBar from "./Components/Navbar/TopBar";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <TopBar />
+      <ResponsiveAppBar />
       <>
         <Routes>
           <Route exact path="/" element={<RegisterPage />} />
