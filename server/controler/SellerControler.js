@@ -77,7 +77,12 @@ const SellerController = {
 
   //! Products
   async createProduct(req, res) {
-    const { name, description, price, stock, CategoryId, SellerId } = req.body;
+    const { name, description, price, stock } = req.body;
+    const { CategoryId, SellerId } = req.params; // Get CategoryId and SellerId from request parameters
+    
+    console.log('CategoryId:', CategoryId);
+    console.log('SellerId:', SellerId);
+  
     try {
       const product = await Product.create({ name, description, price, stock, CategoryId, SellerId });
       res.status(200).json({ message: 'Product created successfully', data: product });
@@ -86,6 +91,7 @@ const SellerController = {
       res.status(500).json({ error: 'Internal server error' });
     }
   },
+  
 
   async getAllProducts(req, res) {
     try {
