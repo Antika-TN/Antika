@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const AdminControler= require ('../controler/adminControler')
 
-router.get('/',  /*  middleware ,controller */);
+router.get('/getSellers',AdminControler.getAllseller );
 
 
 router.get('/:id',  /*  middleware ,controller */);
