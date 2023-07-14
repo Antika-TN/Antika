@@ -3,22 +3,22 @@ import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } fro
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function Allsellers() {
-    const [sellersname, setSellersname] = useState([]);
+    const [sellersname, setSellersname] = useState([])
 
   useEffect(() => {
-    fetchSellersData();
+    fetchSellersData()
   }, []);
 
   async function fetchSellersData() {
     try {
 
-      const response = await fetch('http://localhost:3000/admin/getSellers');
-      const data = await response.json();
+      const response = await fetch('http://localhost:3000/admin/getSellers')
+      const data = await response.json()
 
 
-      setSellersname(data.data);
+      setSellersname(data.data)
     } catch (error) {
-      console.error('Error', error);
+      console.error('Error', error)
     }
   }
 
@@ -45,7 +45,7 @@ function Allsellers() {
         await deleteSeller(id)
         fetchSellersData()
       }catch(error){
-console.error('Error deleting seller:',error);
+console.error('Error deleting seller:',error)
       }
       
     };

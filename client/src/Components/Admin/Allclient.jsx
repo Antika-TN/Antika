@@ -3,10 +3,10 @@ import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } fro
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function Allclient() {
-  const [clientsname, setClientssname] = useState([]);
+  const [clientsname, setClientssname] = useState([])
 
   useEffect(() => {
-    fetchClientsData();
+    fetchClientsData()
   }, []);
 
   async function fetchClientsData() {
@@ -22,7 +22,7 @@ function Allclient() {
     }
   }
 
-  async function deleteSeller(id) {
+  async function deleteClient(id) {
     try {
 
       const response = await fetch(`http://localhost:3000/admin/deleteClient/${id}`,{
@@ -42,7 +42,7 @@ function Allclient() {
 
     const handleDelete = async (id) => {
       try{
-        await deleteSeller(id)
+        await deleteClient(id)
         fetchClientsData()
       }catch(error){
 console.error('Error deleting seller:',error);
@@ -52,8 +52,9 @@ console.error('Error deleting seller:',error);
     <List>
       {clientsname.map((client) => (
         <ListItem key={client.id}>
-          <ListItemText primary={client.firstName} secondary={client.createdAt} />
-          <ListItemText primary={client.lastName} secondary={client.phoneNumber} />
+          <ListItemText primary={client.firstName} secondary={client.lastName} />
+          
+          <ListItemText primary={client.createdAt} secondary={client.phoneNumber} />
           <ListItemSecondaryAction>
             <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(client.id)}>
               <DeleteIcon />
