@@ -20,9 +20,13 @@ sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
 
 function Cards() {
   const [clientCount, setclientCount] = useState([])
+  const [sellerCount, setsellerCount] = useState([])
+  const [productCount, setproductCount] = useState([])
 
   useEffect(() => {
     fetchClientCount()
+    fetchsellerCount()
+    fetchproductCount()
   }, []);
 
   async function fetchClientCount() {
@@ -33,6 +37,34 @@ function Cards() {
 
 
       setclientCount(data.data)
+  
+    } catch (error) {
+      console.error('Error', error)
+    }
+  }
+
+  async function fetchsellerCount() {
+    try {
+
+      const response = await fetch('http://localhost:3000/admin/selectsellerCount')
+      const data = await response.json()
+
+
+      setsellerCount(data.data)
+  
+    } catch (error) {
+      console.error('Error', error)
+    }
+  }
+
+  async function fetchproductCount() {
+    try {
+
+      const response = await fetch('http://localhost:3000/admin/selectproductCount')
+      const data = await response.json()
+
+
+      setproductCount(data.data)
   
     } catch (error) {
       console.error('Error', error)
@@ -68,7 +100,7 @@ function Cards() {
            seller
           </Typography>
           <Typography variant="body2">
-            225
+           {sellerCount}
           </Typography>
         </CardContent>
         <CardActions>
@@ -88,7 +120,7 @@ function Cards() {
            product
           </Typography>
           <Typography variant="body2">
-            225
+           {productCount}
           </Typography>
         </CardContent>
         <CardActions>
