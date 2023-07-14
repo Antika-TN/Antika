@@ -1,5 +1,6 @@
 const Review = require("../model/Review");
 const Product = require("../model/Product");
+const Client= require("../model/Client")
 const { where } = require("sequelize");
 module.exports = {
   getAll(req, res) {
@@ -7,11 +8,16 @@ module.exports = {
     Review.findAll({
       include: [
         {
+          model: Client,
+          attributes: ['id', 'firstName', 'lastName', 'address', 'phoneNumber'],
+        },
+        {
           model: Product,
           where: { id: id },
         },
       ],
     })
+    
       .then((result) => {
         res.status(200).send(result);
       })
