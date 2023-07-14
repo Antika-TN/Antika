@@ -6,6 +6,9 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { Link } from 'react-router-dom';
+
+
 
 
 <Box
@@ -28,7 +31,9 @@ function Cards() {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button >see all</Button>
+        <Link to="/clients">
+              <Button>See All</Button>
+            </Link>
         </CardActions>
       </Card>
     </Grid>
@@ -46,7 +51,9 @@ function Cards() {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button >see all</Button>
+        <Link to="/sellers">
+              <Button>See All</Button>
+            </Link>
         </CardActions>
       </Card>
     </Grid>
@@ -64,7 +71,9 @@ function Cards() {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button >see all</Button>
+        <Link to="/products">
+              <Button>See All</Button>
+            </Link>
         </CardActions>
       </Card>
     </Grid>
