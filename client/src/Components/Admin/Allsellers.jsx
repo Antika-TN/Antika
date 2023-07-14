@@ -1,6 +1,8 @@
 import React, { useState , useEffect } from 'react'
 import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 function Allsellers() {
     const [sellersname, setSellersname] = useState([])
@@ -50,6 +52,13 @@ console.error('Error deleting seller:',error)
       
     };
   return (
+<div>
+    <div>
+    <Link to="/admin">
+               <Button variant="contained" color="primary">go back to dashboard</Button>
+             </Link>
+    </div>
+
     <List>
       {sellersname.map((seller) => (
         <ListItem key={seller.id}>
@@ -62,6 +71,7 @@ console.error('Error deleting seller:',error)
         </ListItem>
       ))}
     </List>
+    </div>
   )
 }
 
