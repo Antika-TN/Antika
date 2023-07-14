@@ -5,7 +5,7 @@ const AdminControler= require ('../controler/adminControler')
 router.get('/getSellers',AdminControler.getAllseller );
 router.get('/getclients',AdminControler.getAllclient );
 router.delete('/deleteSeller/:id',AdminControler.deleteSeller)
-
+router.delete('/deleteClient/:id',AdminControler.deleteClient)
 
 router.get('/:id',  /*  middleware ,controller */);
 

@@ -37,6 +37,21 @@ const AdminControler ={
             res.status(500).json({error:'Internal server error'})
         }
     },
+
+    async deleteClient(req,res){
+        const clientId = req.params.id
+        try{
+            const client= await Client.findByPk(clientId)
+            if (!client) {
+                return res.status(404).json({ error: 'client not found' });
+              }
+              await client.destroy()
+            res.status(200).json({message:'client deleted successfully'})
+        } catch (error){
+            console.log('Error deleting client:',error)
+            res.status(500).json({error:'Internal server error'})
+        }
+    },
 }
 
 module.exports = AdminControler;
