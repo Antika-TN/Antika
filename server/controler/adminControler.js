@@ -78,7 +78,37 @@ const AdminControler ={
           console.error('Error deleting product:', error);
           res.status(500).json({ error: 'Internal server error' });
         }
-      }
+      },
+
+      async SelectclientCount (req,res){
+        try{
+            const clientCount = await Client.count()
+            res.status(200).json({ message:'client count retrieved successfully',data:clientCount})
+        } catch(error){
+            console.log('error retrieving client count:',error)
+            res.status(500).json({error:'internal server error'})
+        }
+      },
+
+      async SelectsellerCount (req,res){
+        try{
+            const sellerCount = await Seller.count()
+            res.status(200).json({ message:'seller count retrieved successfully',data:sellerCount})
+        } catch(error){
+            console.log('error retrieving seller count:',error)
+            res.status(500).json({error:'internal server error'})
+        }
+      },
+
+      async SelectproductCount (req,res){
+        try{
+            const productCount = await Products.count()
+            res.status(200).json({ message:'product count retrieved successfully',data:productCount})
+        } catch(error){
+            console.log('error retrieving product count:',error)
+            res.status(500).json({error:'internal server error'})
+        }
+      },
 }
 
 module.exports = AdminControler;
