@@ -9,13 +9,16 @@ import HomePage from "./pages/HomePage";
 import UserProfile from "./pages/UserProfile";
 import ShoppingCard from "./pages/ShoppingCard";
 import ProductPage from "./pages/ProductPage";
-import TopBar from "./Components/Navbar/TopBar";
-import ResponsiveAppBar from "./Components/Navbar/TopBar";
+// import TopBar from "./Components/Navbar/TopBar";
+import ProductDetails from "./Components/Reviews/ProductDetails";
+import Comments from "./Components/Reviews/Coments";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <ResponsiveAppBar />
+
+      <ProductDetails/>
+      <Comments/>
       <>
         <Routes>
           <Route exact path="/" element={<RegisterPage />} />
