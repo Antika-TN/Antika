@@ -18,21 +18,44 @@ function Allsellers() {
 
       setSellersname(data.data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error', error);
     }
   }
 
-    const handleDelete = (id) => {
+  async function deleteSeller(id) {
+    try {
+
+      const response = await fetch(`http://localhost:3000/admin/deleteSeller/${id}`,{
+        method:'DELETE',
+      });
+
+      if (response.ok) {
+        console.log('seller deleted successfully')
+      } else {
+        console.error('Failed to delete seller')
+      }
+    } catch (error) {
+      console.error('Error', error)
+    }
+  }
+
+
+    const handleDelete = async (id) => {
+      try{
+        await deleteSeller(id)
+        fetchSellersData()
+      }catch(error){
+console.error('Error deleting seller:',error);
+      }
       
-      console.log('Delete item with id:', id);
     };
   return (
     <List>
-      {sellersname.map((item) => (
-        <ListItem key={item.id}>
-          <ListItemText primary={item.companyName} secondary={item.createdAt} />
+      {sellersname.map((seller) => (
+        <ListItem key={seller.id}>
+          <ListItemText primary={seller.companyName} secondary={seller.createdAt} />
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(item.id)}>
+            <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(seller.id)}>
               <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>

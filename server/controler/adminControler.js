@@ -22,6 +22,21 @@ const AdminControler ={
             res.status(500).json({error:'Internal server error'})
         }
     },
+
+    async deleteSeller(req,res){
+        const sellerId = req.params.id
+        try{
+            const seller= await Seller.findByPk(sellerId)
+            if (!seller) {
+                return res.status(404).json({ error: 'seller not found' });
+              }
+              await seller.destroy()
+            res.status(200).json({message:'seller deleted successfully'})
+        } catch (error){
+            console.log('Error deleting seller:',error)
+            res.status(500).json({error:'Internal server error'})
+        }
+    },
 }
 
 module.exports = AdminControler;
