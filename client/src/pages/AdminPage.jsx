@@ -2,21 +2,22 @@ import React, { useState , useEffect } from 'react'
 import DashboardTable from '../Components/Admin/Table.jsx'
 import Cards from '../Components/Admin/cards.jsx';
 
+
 const AdminPage = () => {
   const [sellersname, setSellersname] = useState([]);
 
   useEffect(() => {
-    fetchData();
+    fetchSellersData();
   }, []);
 
-  async function fetchData() {
+  async function fetchSellersData() {
     try {
 
-      const response = await fetch('http://localhost:3000/admin/getclients');
+      const response = await fetch('http://localhost:3000/admin/getSellers');
       const data = await response.json();
 
 
-      setSellersname(data);
+      setSellersname(data.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -24,7 +25,9 @@ const AdminPage = () => {
   return (
     <div>
     <div className='cards'>
+    
     <Cards/>
+    
     </div>
     <div>
      

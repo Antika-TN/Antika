@@ -1,5 +1,6 @@
 const Seller = require('../model/Seller')
 const Client = require('../model/Client')
+const Products = require('../model/Product.js');
 
 const AdminControler ={
 
@@ -22,6 +23,62 @@ const AdminControler ={
             res.status(500).json({error:'Internal server error'})
         }
     },
+
+    async deleteSeller(req,res){
+        const sellerId = req.params.id
+        try{
+            const seller= await Seller.findByPk(sellerId)
+            if (!seller) {
+                return res.status(404).json({ error: 'seller not found' });
+              }
+              await seller.destroy()
+            res.status(200).json({message:'seller deleted successfully'})
+        } catch (error){
+            console.log('Error deleting seller:',error)
+            res.status(500).json({error:'Internal server error'})
+        }
+    },
+
+    async deleteClient(req,res){
+        const clientId = req.params.id
+        try{
+            const client= await Client.findByPk(clientId)
+            if (!client) {
+                return res.status(404).json({ error: 'client not found' });
+              }
+              await client.destroy()
+            res.status(200).json({message:'client deleted successfully'})
+        } catch (error){
+            console.log('Error deleting client:',error)
+            res.status(500).json({error:'Internal server error'})
+        }
+    },
+
+    async getAllProducts(req, res) {
+        try {
+          const products = await Products.findAll();
+          res.status(200).json({ message: 'Products retrieved successfully', data: products });
+        } catch (error) {
+          console.error('Error retrieving products:', error);
+          res.status(500).json({ error: 'Internal server error' });
+        }
+      },
+
+      async deleteProduct(req, res) {
+        const productId = req.params.id;
+    
+        try {
+          const product = await Products.findByPk(productId);
+          if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+          }
+          await product.destroy();
+          res.status(200).json({ message: 'Product deleted successfully' });
+        } catch (error) {
+          console.error('Error deleting product:', error);
+          res.status(500).json({ error: 'Internal server error' });
+        }
+      }
 }
 
 module.exports = AdminControler;

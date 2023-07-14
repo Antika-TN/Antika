@@ -10,9 +10,14 @@ import UserProfile from "./pages/UserProfile";
 import ShoppingCard from "./pages/ShoppingCard";
 import ProductPage from "./pages/ProductPage";
 import ResponsiveAppBar from "./Components/Navbar/TopBar";
+import Allclient from "./Components/Admin/Allclient";
+import Allproduct from "./Components/Admin/Allproduct";
+import Allsellers from "./Components/Admin/Allsellers";
+
 
 const App = () => {
   return (
+
     <BrowserRouter>
       <ResponsiveAppBar />
       <>
@@ -24,6 +29,9 @@ const App = () => {
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/shoppingCard" element={<ShoppingCard />} />
           <Route path="/product" element={<ProductPage />} />
+          <Route path="/sellers" element={<Allsellers/>} />
+          <Route path="/clients" element={<Allclient/>} />
+          <Route path="/products" element={<Allproduct/>} />
         </Routes>
       </>
     </BrowserRouter>

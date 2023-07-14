@@ -8,7 +8,7 @@ export default function DashboardTable ({sellersname}) {
    
       <TableHead>
         <TableRow>
-          <TableCell>Header 1</TableCell>
+          <TableCell>Company Name</TableCell>
           <TableCell>Header 2</TableCell>
           <TableCell>Header 2</TableCell>
           <TableCell>Header 2</TableCell>
@@ -17,15 +17,12 @@ export default function DashboardTable ({sellersname}) {
 
     
       <TableBody>
-      {/* {sellersname.map((seller) => (
+      {sellersname.map((seller) => (
             <TableRow key={seller.id}>
               <TableCell>{seller.companyName}</TableCell>
               <TableCell>ddd</TableCell>
             </TableRow>
-          ))} */}
-           <TableCell>srhd</TableCell>
-          <TableCell>qrshtd</TableCell>
-          <TableCell>grshtd</TableCell>
+          ))}
       </TableBody>
     </Table>
   </TableContainer>
