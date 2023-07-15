@@ -26,25 +26,25 @@ const App = () => {
 const AppRoutes = () => {
   const location = useLocation();
 
-  const isAuthPage = location.pathname === "/" || location.pathname === "/login";
-  const showFooter = !isAuthPage;
+  const showNav = location.pathname === "/register" || location.pathname === "/login";
 
   return (
     <>
-      {!isAuthPage && <ResponsiveAppBar />}
+      {!showNav && <ResponsiveAppBar />}
       <Routes>
-        <Route path="/" element={<RegisterPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashbord" element={<AdminPage />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/account" element={<UserProfile />} />
         <Route path="/shoppingCard" element={<ShoppingCard />} />
-        <Route path="/profile" element={<ProductPage />} />
+        <Route path="/product" element={<ProductPage />} />
         <Route path="/sellers" element={<Allsellers />} />
         <Route path="/clients" element={<Allclient />} />
         <Route path="/products" element={<Allproduct />} />
+        
       </Routes>
-      {showFooter && <Footer />}
+      <Footer />
     </>
   );
 };
