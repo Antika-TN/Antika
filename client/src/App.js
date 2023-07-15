@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import AdminPage from "./pages/AdminPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -15,32 +15,40 @@ import Allproduct from "./Components/Admin/Allproduct";
 import Allsellers from "./Components/Admin/Allsellers";
 import Footer from "./Components/Footer/Footer";
 
+
+
 const App = () => {
   return (
+
     <BrowserRouter>
-
-
-  const showNav = location.pathname === "/register" || location.pathname === "/login";
-
-  return (
-    <>
-      {!showNav && <ResponsiveAppBar />}
-      <Routes>
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashbord" element={<AdminPage />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/account" element={<UserProfile />} />
-        <Route path="/shoppingCard" element={<ShoppingCard />} />
-        <Route path="/product" element={<ProductPage />} />
-        <Route path="/sellers" element={<Allsellers />} />
-        <Route path="/clients" element={<Allclient />} />
-        <Route path="/products" element={<Allproduct />} />
-        
-      </Routes>
-      <Footer />
-    </>
+      <AppRoutes />
+    </BrowserRouter>
   );
+};
 
+const AppRoutes = () => {
+  const location = useLocation();
+
+  const isAuthPage = location.pathname === "/" || location.pathname === "/login";
+  return (
+      <>
+      {!isAuthPage && <ResponsiveAppBar/>  }
+        <Routes>
+          <Route exact path="/" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/userProfile" element={<UserProfile />} />
+          <Route path="/shoppingCard" element={<ShoppingCard />} />
+          <Route path="/product" element={<ProductPage />} />
+          <Route path="/sellers" element={<Allsellers/>} />
+          <Route path="/clients" element={<Allclient/>} />
+          <Route path="/products" element={<Allproduct/>} />
+        </Routes>
+        <Footer/>
+      </>
+    
+  );
+};
 
 export default App;
