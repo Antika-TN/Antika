@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import AdminPage from "./pages/AdminPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -15,12 +15,23 @@ import Allproduct from "./Components/Admin/Allproduct";
 import Allsellers from "./Components/Admin/Allsellers";
 
 
+
 const App = () => {
   return (
 
     <BrowserRouter>
-      <ResponsiveAppBar />
+      <AppRoutes />
+    </BrowserRouter>
+  );
+};
+
+const AppRoutes = () => {
+  const location = useLocation();
+
+  const isAuthPage = location.pathname === "/" || location.pathname === "/login";
+  return (
       <>
+      {!isAuthPage && <ResponsiveAppBar/> }
         <Routes>
           <Route exact path="/" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -34,7 +45,7 @@ const App = () => {
           <Route path="/products" element={<Allproduct/>} />
         </Routes>
       </>
-    </BrowserRouter>
+    
   );
 };
 

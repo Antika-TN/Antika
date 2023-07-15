@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const AuthController = {
   createUser: async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password,role } = req.body;
 
     try {
       const existingUser = await User.findOne({ where: { email } });
@@ -20,7 +20,7 @@ const AuthController = {
         password: hashedPassword,
         role: 'user',
       });
-
+console.log(newUser)
       res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
       console.log(error);
