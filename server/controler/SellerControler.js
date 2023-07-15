@@ -1,5 +1,6 @@
 const Category = require('../model/Category.js');
 const Product = require('../model/Product.js');
+const Seller = require ('../model/Seller.js')
 
 const SellerController = {
   //! Category
@@ -149,7 +150,91 @@ const SellerController = {
       console.error('Error deleting product:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
+  },
+  //! seller
+  // Create a Seller
+async createSeller(req, res) {
+  const { companyName, address, phoneNumber } = req.body;
+  const { UserId } = req.params;
+
+  try {
+    const seller = await Seller.create({ companyName, address, phoneNumber, UserId });
+    res.status(200).json({ message: 'Seller created successfully', data: seller });
+  } catch (error) {
+    console.error('Error creating seller:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
+},
+
+// Get all Sellers
+async getAllSellers(req, res) {
+  try {
+    const sellers = await Seller.findAll();
+    res.status(200).json({ message: 'Sellers retrieved successfully', data: sellers });
+  } catch (error) {
+    console.error('Error retrieving sellers:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+},
+
+// Get a Seller by ID
+async getSellerById(req, res) {
+  const sellerId = req.params.id;
+
+  try {
+    const seller = await Seller.findByPk(sellerId);
+    if (!seller) {
+      return res.status(404).json({ error: 'Seller not found' });
+    }
+    res.status(200).json({ message: 'Seller retrieved successfully', data: seller });
+  } catch (error) {
+    console.error('Error retrieving seller:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+},
+
+// Update a Seller
+async updateSeller(req, res) {
+  const sellerId = req.params.id;
+  const { companyName, address, phoneNumber } = req.body;
+
+  try {
+    const seller = await Seller.findByPk(sellerId);
+    if (!seller) {
+      return res.status(404).json({ error: 'Seller not found' });
+    }
+
+    seller.companyName = companyName;
+    seller.address = address;
+    seller.phoneNumber = phoneNumber;
+
+    await seller.save();
+    res.status(200).json({ message: 'Seller updated successfully', data: seller });
+  } catch (error) {
+    console.error('Error updating seller:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+},
+
+// Delete a Seller
+async deleteSeller(req, res) {
+  const sellerId = req.params.id;
+
+  try {
+    const seller = await Seller.findByPk(sellerId);
+    if (!seller) {
+      return res.status(404).json({ error: 'Seller not found' });
+    }
+
+    await seller.destroy();
+    res.status(200).json({ message: 'Seller deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting seller:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+
 };
 
 module.exports = SellerController;
