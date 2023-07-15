@@ -229,4 +229,4 @@ function ResponsiveAppBar() {
   );
 }
 
-export default TopBar
+export default ResponsiveAppBar
