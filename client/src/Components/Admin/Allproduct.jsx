@@ -63,7 +63,8 @@ console.error('Error deleting product:',error)
     <List>
     {productsname.map((product) => (
       <ListItem key={product.id}>
-        <ListItemText primary={product.name} secondary={product.createdAt} />
+        <ListItemText primary={`Category:  ${product.Category.name}`} secondary={`Product: ${product.name}`} />
+        <ListItemText primary={`Company: ${product.Seller.companyName}`} secondary={`Created At: ${product.createdAt}`} />
         <ListItemSecondaryAction>
           <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(product.id)}>
             <DeleteIcon />
