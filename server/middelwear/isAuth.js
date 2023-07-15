@@ -10,16 +10,16 @@ const isAuth = (requiredRole) => (req, res, next) => {
   const token = bearerToken.split(' ')[1];
 
   try {
-    const payload = jwt.verify(token, 'your-secret-key');
+    const payload = jwt.verify(token,process.env.SECRET_KEY);
 
     // Allow access to user's own profile 
-    if (payload.role ==='user') {
+    if (requiredRole === 'user') {
       req.user = payload;
       return next();
     }
 
     // Allow admin role to access anything
-    if (payload.role === 'admin') {
+    if (requiredRole === 'admin') {
       req.user = payload;
       return next();
     }
@@ -29,7 +29,8 @@ const isAuth = (requiredRole) => (req, res, next) => {
       return res.status(403).json({ error: 'Unauthorized' });
     }
 
-    return res.status(403).json({ error: 'Unauthorized access to user profile' });
+    req.user = payload;
+    return next();
   } catch (error) {
     return res.status(401).json({ error: 'Invalid token' });
   }

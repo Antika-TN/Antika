@@ -14,17 +14,16 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaApple, FaFacebook } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 function SignInSide() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Send login credentials to the server
     try {
       const response = await axios.post('http://localhost:3000/auth/login', {
         email,
@@ -38,6 +37,7 @@ function SignInSide() {
         Cookies.set('token', token);
 
         console.log('Login successful');
+        navigate('/profile');
       } else {
         console.log('Login failed');
       }
@@ -114,7 +114,7 @@ function SignInSide() {
               </Button>
               <Grid container>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

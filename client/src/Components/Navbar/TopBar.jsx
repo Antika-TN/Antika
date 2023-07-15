@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -9,15 +10,41 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
-import Box from "@mui/material/Box"; // Import the Box component
+import Box from "@mui/material/Box";
 import "./search.css";
 import { AiOutlineSearch } from "react-icons/ai";
-const pages = ["Products", "Pricing"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
+
+const pages = [
+  { label: "home", link: "/" },
+  { label: "about us", link: "/aboutus" },
+  { label: "all products", link: "/products" },
+];
+
+const settings = [
+  { label: "Profile", link: "/product" },
+  { label: "Dashboard", link: "/dashbord" },
+  { label: "Logout", link: "/" },
+];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      if (decodedToken.role === "admin") {
+        console.log('role',decodedToken.role)
+        setIsAdmin(true);
+      }
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,18 +62,20 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    Cookies.remove("token");
+    setIsLoggedIn(false);
+  };
+
   return (
-    <AppBar
-      position="static"
-      sx={{ boxShadow: "none", backgroundColor: "transparent" }}
-    >
+    <AppBar position="static" sx={{ boxShadow: "none", backgroundColor: "transparent" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -90,8 +119,14 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
+                  <Button
+                    component={Link}
+                    to={page.link}
+                    sx={{ width: "100%", textAlign: "center" }}
+                  >
+                    {page.label}
+                  </Button>
                 </MenuItem>
               ))}
             </Menu>
@@ -100,8 +135,8 @@ function ResponsiveAppBar() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={Link}
+            to=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -115,6 +150,7 @@ function ResponsiveAppBar() {
           >
             LOGO
           </Typography>
+
           <Typography>
             <AiOutlineSearch className="search-icon" />
             <input type="text" placeholder="Search" className="search-input" />
@@ -123,14 +159,27 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.label}
+                component={Link}
+                to={page.link}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                {page.label}
               </Button>
             ))}
           </Box>
+          {!isLoggedIn && (
+            <Button
+              component={Link}
+              to="/login"
+              variant="outlined"
+              color="inherit"
+              sx={{ marginRight: "21px" }}
+            >
+              SignIn
+            </Button>
+          )}
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -138,6 +187,7 @@ function ResponsiveAppBar() {
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -154,11 +204,23 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              {settings.map((setting) => {
+                if (setting.label === "Dashboard" && !isAdmin) {
+                  return null;
+                }
+                return (
+                  <MenuItem
+                    key={setting.label}
+                    onClick={
+                      setting.label === "Logout" ? handleLogout : handleCloseUserMenu
+                    }
+                    component={Link}
+                    to={setting.link}
+                  >
+                    {setting.label}
+                  </MenuItem>
+                );
+              })}
             </Menu>
           </Box>
         </Toolbar>

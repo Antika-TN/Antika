@@ -41,10 +41,12 @@ console.log(newUser)
         return res.status(401).json({ error: 'Invalid password' });
       }
 
-      const token = jwt.sign({ id: user.id, email: user.email }, 'your-secret-key', {
+      const token = jwt.sign({ id: user.id, email: user.email,role:user.role }, 'your-secret-key', {
+        
         expiresIn: '12h' 
+        
       });
-
+      console.log(user.role)
       res.json({ token });
     } catch (error) {
       console.log(error);
