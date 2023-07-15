@@ -9,29 +9,38 @@ import HomePage from "./pages/HomePage";
 import UserProfile from "./pages/UserProfile";
 import ShoppingCard from "./pages/ShoppingCard";
 import ProductPage from "./pages/ProductPage";
-// import TopBar from "./Components/Navbar/TopBar";
-import ProductDetails from "./Components/Reviews/ProductDetails";
-import Comments from "./Components/Reviews/Coments";
+import ResponsiveAppBar from "./Components/Navbar/TopBar";
+import Allclient from "./Components/Admin/Allclient";
+import Allproduct from "./Components/Admin/Allproduct";
+import Allsellers from "./Components/Admin/Allsellers";
+import Footer from "./Components/Footer/Footer";
 
 const App = () => {
   return (
     <BrowserRouter>
 
 
-      <Comments/>
-      <>
-        <Routes>
-          <Route exact path="/" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/userProfile" element={<UserProfile />} />
-          <Route path="/shoppingCard" element={<ShoppingCard />} />
-          <Route path="/product" element={<ProductPage />} />
-        </Routes>
-      </>
-    </BrowserRouter>
+  const showNav = location.pathname === "/register" || location.pathname === "/login";
+
+  return (
+    <>
+      {!showNav && <ResponsiveAppBar />}
+      <Routes>
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/dashbord" element={<AdminPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/account" element={<UserProfile />} />
+        <Route path="/shoppingCard" element={<ShoppingCard />} />
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="/sellers" element={<Allsellers />} />
+        <Route path="/clients" element={<Allclient />} />
+        <Route path="/products" element={<Allproduct />} />
+        
+      </Routes>
+      <Footer />
+    </>
   );
-};
+
 
 export default App;

@@ -54,7 +54,7 @@ console.error('Error deleting seller:',error)
   return (
 <div>
     <div>
-    <Link to="/admin">
+    <Link to="/dashbord">
                <Button variant="contained" color="primary">go back to dashboard</Button>
              </Link>
     </div>
