@@ -17,7 +17,7 @@ const App = () => {
   return (
     <BrowserRouter>
 
-      <ProductDetails/>
+
       <Comments/>
       <>
         <Routes>

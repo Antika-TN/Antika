@@ -1,21 +1,30 @@
 import React, { useState } from "react";
-import { Box, TextareaAutosize, Button, CardActions } from "@mui/material";
+import {
+  Box,
+  TextareaAutosize,
+  Button,
+  CardActions,
+  Hidden,
+} from "@mui/material";
 
-function AddComment({ addComment }) {
+function AddComment({ addComment,closeClick }) {
   const [comment, setComment] = useState();
+
   return (
-    <Box>
-      <TextareaAutosize
-        style={{ height: "200px", width: "500px" }}
-        onChange={(e) => setComment(e.target.value)}
-        value={comment}
-      />
-      <CardActions>
-        <Button size="large" onClick={() => addComment(comment)}>
-          Send comment
-        </Button>
-      </CardActions>
-    </Box>
+    <Hidden>
+      <Box style={{background: "transparent ",}}>
+        <TextareaAutosize autoFocus
+          style={{ height: "200px", width: "500px",background: "transparent ", }}
+          onChange={(e) => setComment(e.target.value)}
+          value={comment}
+        />
+        <CardActions>
+          <Button size="large" onClick={() => addComment(comment)}>
+            Send comment
+          </Button>
+        </CardActions>
+      </Box>
+    </Hidden>
   );
 }
 
