@@ -13,6 +13,7 @@ import ResponsiveAppBar from "./Components/Navbar/TopBar";
 import Allclient from "./Components/Admin/Allclient";
 import Allproduct from "./Components/Admin/Allproduct";
 import Allsellers from "./Components/Admin/Allsellers";
+import Footer from "./Components/Footer/Footer";
 
 
 
@@ -31,7 +32,7 @@ const AppRoutes = () => {
   const isAuthPage = location.pathname === "/" || location.pathname === "/login";
   return (
       <>
-      {!isAuthPage && <ResponsiveAppBar/> }
+      {!isAuthPage && <ResponsiveAppBar/>  }
         <Routes>
           <Route exact path="/" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -44,6 +45,7 @@ const AppRoutes = () => {
           <Route path="/clients" element={<Allclient/>} />
           <Route path="/products" element={<Allproduct/>} />
         </Routes>
+        <Footer/>
       </>
     
   );
