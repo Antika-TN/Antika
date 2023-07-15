@@ -2,7 +2,7 @@ const express = require("express");
 const sequelize = require('./db/db.connect');
 const app = express();
 require('dotenv').config();
-const PORT = process.env.POR||3000
+const PORT = process.env.PORT||3000
 const cors = require("cors");
 
 const User = require('./model/user');
@@ -13,6 +13,7 @@ const Product = require('./model/Product');
 const Order = require('./model/Order');
 const OrderItem = require('./model/OderItem');
 const Review = require('./model/Review');
+const adminRouter = require ('./router/admin')
 const authRouter = require('./router/Auth');
 const clientRouter = require('./router/clients');
 const sellerRouter = require('./router/sellers');
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use(cors());
 
 // app.use(route);
+app.use('/admin',adminRouter)
 app.use('/auth', authRouter);
 app.use('/clients', clientRouter);
 app.use('/sellers', sellerRouter);
