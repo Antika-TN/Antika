@@ -1,52 +1,62 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import '../pages/Styles.Page/Auth.css'
-import logIn from '../assets/logIn.png'
-import {FcGoogle} from 'react-icons/fc';
-import {FaApple, FaFacebook} from 'react-icons/fa';
-
-
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-
+import '../pages/Styles.Page/Auth.css';
+import logIn from '../assets/logIn.png';
+import { FcGoogle } from 'react-icons/fc';
+import { FaApple, FaFacebook } from 'react-icons/fa';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
-  const handleSubmit = (event) => {
+function SignInSide() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    // Send login credentials to the server
+    try {
+      const response = await axios.post('http://localhost:3000/auth/login', {
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        const { token } = response.data;
+
+        // Store the token in a cookie
+        Cookies.set('token', token);
+
+        console.log('Login successful');
+      } else {
+        console.log('Login failed');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
   return (
-    <ThemeProvider  theme={defaultTheme}>
-      <Grid container component="main" >
+    <ThemeProvider theme={defaultTheme}>
+      <Grid container component="main">
         <CssBaseline />
         <Grid
           item
@@ -57,8 +67,8 @@ export default function SignInSide() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
-          
-        ><img src={logIn} alt=""/> 
+        >
+          <img src={logIn} alt="" />
         </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
@@ -70,7 +80,6 @@ export default function SignInSide() {
               alignItems: 'center',
             }}
           >
-            
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
@@ -83,6 +92,8 @@ export default function SignInSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={handleEmailChange}
                 autoFocus
               />
               <TextField
@@ -93,31 +104,32 @@ export default function SignInSide() {
                 label="Password"
                 type="password"
                 id="password"
+                value={password}
                 autoComplete="current-password"
+                onChange={handlePasswordChange}
               />
-             
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
+
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
               <Grid container>
-             
                 <Grid item>
                   <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
               </Grid>
-              <div className='btn-media'>
-                <button className='btn-logIn-Google'> <FcGoogle/> Continue with Google</button>
-                <button className='btn-logIn-Facebook'><FaFacebook/>Continue with Facebook</button>
-                <button className='btn-logIn-Apple'><FaApple/>Continue with Apple</button>
+              <div className="btn-media">
+                <button className="btn-logIn-Google">
+                  <FcGoogle /> Continue with Google
+                </button>
+                <button className="btn-logIn-Facebook">
+                  <FaFacebook /> Continue with Facebook
+                </button>
+                <button className="btn-logIn-Apple">
+                  <FaApple /> Continue with Apple
+                </button>
               </div>
-             
             </Box>
           </Box>
         </Grid>
@@ -125,3 +137,5 @@ export default function SignInSide() {
     </ThemeProvider>
   );
 }
+
+export default SignInSide;

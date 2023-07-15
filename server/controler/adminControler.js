@@ -1,6 +1,7 @@
 const Seller = require('../model/Seller')
 const Client = require('../model/Client')
 const Products = require('../model/Product.js');
+const category = require('../model/Category')
 
 const AdminControler ={
 
@@ -56,7 +57,12 @@ const AdminControler ={
 
     async getAllProducts(req, res) {
         try {
-          const products = await Products.findAll();
+          const products = await Products.findAll({
+            include: [
+              { model: Seller, attributes: ['companyName'], as: 'Seller' },
+              { model: category, attributes: ['name'], as: 'Category' }
+            ]
+          });
           res.status(200).json({ message: 'Products retrieved successfully', data: products });
         } catch (error) {
           console.error('Error retrieving products:', error);
