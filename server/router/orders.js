@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const orderControllers = require('../controler/order')
 
 router.get('/', /*  middleware ,controller */orderControllers.getAllOrder);
@@ -12,5 +13,6 @@ router.post('/insert/:ClientId',/*  middleware ,controller */ orderControllers.i
 router.put('/:ClientId',/*  middleware ,controller */ orderControllers.updateOrder);
 
 router.delete('/:id',orderControllers.deleteOrder)
+
 
 module.exports = router;

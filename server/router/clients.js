@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 const clientControllers = require('../controler/clientControler')
@@ -9,5 +10,6 @@ router.get('/:UserId',  /*  middleware ,controller */clientControllers.getOneCli
 
 
 router.put('/:UserId',  /*  middleware ,controller */clientControllers.updateClient);
+
 
 module.exports = router;

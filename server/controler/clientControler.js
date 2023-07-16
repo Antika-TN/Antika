@@ -1,3 +1,4 @@
+
 const Client = require('../model/Client')
 
 const getAllClients = function(req,res){
@@ -39,3 +40,4 @@ const updateClient = function(req,res){
 
 
 module.exports = {getAllClients,getOneClients,updateClient}
+
