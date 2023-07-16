@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useEffect}from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { FaCamera } from 'react-icons/fa';
 
