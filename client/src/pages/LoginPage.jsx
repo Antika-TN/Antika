@@ -138,4 +138,4 @@ function SignInSide() {
   );
 }
 
-export default LoginPage
+export default SignInSide
