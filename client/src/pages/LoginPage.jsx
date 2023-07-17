@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
-function SignInSide() {
+ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -138,4 +138,4 @@ function SignInSide() {
   );
 }
 
-export default SignInSide;
+export default LoginPage
